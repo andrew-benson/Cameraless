@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 46fbe438016f1ef42a93a3237ba16514
-timeCreated: 1518252582
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     100002: door1
@@ -51,6 +49,15 @@ ModelImporter:
     4300014: door3
     4300016: door4
     9500000: //RootNode
+    11100000: //RootNode
+    11100002: door1
+    11100004: door2
+    11100006: door3
+    11100008: door4
+    11100010: drawer1
+    11100012: drawer2
+    11100014: glass1
+    11100016: glass2
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -68,7 +75,7 @@ ModelImporter:
     materialSearch: 1
     materialLocation: 0
   animations:
-    legacyGenerateAnimations: 4
+    legacyGenerateAnimations: 1
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
@@ -80,6 +87,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -104,17 +112,21 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -128,12 +140,11 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
