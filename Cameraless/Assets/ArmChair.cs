@@ -13,15 +13,15 @@ public class ArmChair : ParanormalTrigger {
 
     private void LookAtChairEvent(object sender, EventArgs e)
     {
-        cigarette.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
-        lighter.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
-        tray.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
+        Invoke("AddForce", UnityEngine.Random.Range(3,6));
 
         Invoke("FinishedEvent", 10);
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    private void AddForce()
+    {
+        cigarette.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
+        lighter.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
+        tray.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
+    }
 }
