@@ -4,24 +4,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ArmChair : ParanormalTrigger {
+
     public Rigidbody cigarette, lighter, tray;
+    private GameObject cable;
     private float force = 1;
-	// Use this for initialization
-	void Awake () {
+
+
+    void Awake()
+    {
         StartEvent += LookAtChairEvent;
-	}
+
+    }
 
     private void LookAtChairEvent(object sender, EventArgs e)
     {
-        Invoke("AddForce", UnityEngine.Random.Range(3,6));
-
-        Invoke("FinishedEvent", 10);
+        Invoke(nameof(AddForceToTable), eventTimeDelay);
     }
 
-    private void AddForce()
+    private void AddForceToTable()
     {
         cigarette.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
         lighter.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
         tray.AddForce(new Vector3(force, 0.3f, -force), ForceMode.Impulse);
+
+        cable = GameObject.Find("RopeRigidbodyContainer");
+        cable.transform.GetChild(0).GetComponent<Rigidbody>()?.AddForce(new Vector3(force*20, 0, 0), ForceMode.Acceleration);
+        cable.transform.GetChild(0).GetComponent<Rigidbody>()?.AddForce(new Vector3(-force * 20, 0, 0), ForceMode.Impulse);
+
+        SoundManager.PlaySound(soundFX);
+
+        FinishedEvent();
+    }
+
+    private void AddForceToLight()
+    {
+        cable.transform.GetChild(0).GetComponent<Rigidbody>()?.AddForce(new Vector3(force * 10, 0, 0), ForceMode.Acceleration);
+        cable.transform.GetChild(0).GetComponent<Rigidbody>()?.AddForce(new Vector3(-force * 10, 0, 0), ForceMode.Impulse);
     }
 }

@@ -9,6 +9,10 @@ public class EventManager : MonoBehaviour {
     public static bool IsBusy;
     public float checkEventTimer = 1; // The frequency at which the LookAtEvent is triggered
     private float timer;
+
+    // Keep track of how many events we have triggered
+    public static int activityCounter = 0;
+
 	// Use this for initialization
 	void Start () {
         timer = checkEventTimer;
@@ -20,6 +24,10 @@ public class EventManager : MonoBehaviour {
         {
             if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out raycastHitInfo) && !IsBusy)
             {
+
+                if (raycastHitInfo.collider.name == "Record Player" && activityCounter < 0)
+                    return;
+
                 LookedAtEvent.Invoke(this, new LookEventTriggerArgs() { RaycastHitInfo = raycastHitInfo });
                 Debug.Log("Looked at: " + raycastHitInfo.collider.name);
             }
