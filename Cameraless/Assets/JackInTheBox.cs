@@ -30,25 +30,33 @@ public class JackInTheBox : ParanormalTrigger {
 
         if (CurrentStage != Stage.Stage3)
         {
-            gameObject.Tween("Volume", 1, 0, .3f, TweenScaleFunctions.Linear, (t) =>
-            {
-                recordPlayer.GetComponent<AudioSource>().volume = t.CurrentValue;
-            }, (t) => {
-                recordPlayer.GetComponent<Collider>().enabled = true;
-                recordPlayer.GetComponent<AudioSource>().Pause();
-                recordPlayer.GetComponent<AudioSource>().volume = 1;
-
-                SoundManager.PlaySound(soundFX);
-                FinishedEvent(0);
-            });;
+            TurnOffMusic();
+            FinishedEvent(3f);
         }
         else
         {
             // Play rumble
 
             // Lights flicker and show child
+            MainLight.TurnOff();
+            MainLight.mainLightGameObject.GetComponent<MainLight>().Blink();
         }
 
+    }
+
+    private void TurnOffMusic()
+    {
+        gameObject.Tween("Volume", 1, 0, .3f, TweenScaleFunctions.Linear, (t) =>
+        {
+            recordPlayer.GetComponent<AudioSource>().volume = t.CurrentValue;
+        }, (t) =>
+        {
+            recordPlayer.GetComponent<Collider>().enabled = true;
+            recordPlayer.GetComponent<AudioSource>().Pause();
+            recordPlayer.GetComponent<AudioSource>().volume = 1;
+
+            SoundManager.PlaySound(soundFX);
+        }); ;
     }
 
     //IEnumerator BlinkingLightRoutine()

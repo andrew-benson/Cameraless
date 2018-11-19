@@ -1,47 +1,43 @@
 fileFormatVersion: 2
-guid: a5709997579e6b14cb1f145b2b3ce067
+guid: 3b909fa782e50ce43a6355321b804ac7
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Helper01
-    100004: Object01
-    100006: Object03
-    100008: Rectangle02
-    100010: Rectangle03
-    100012: Rectangle04
-    100014: Rectangle05
-    100016: Rectangle06
-    100018: Rectangle07
-    100020: Rectangle08
-    100022: Rectangle09
-    100024: Rectangle10
-    100026: Sphere01
-    100028: Sphere02
-    100030: Sphere04
+    100002: Object01
+    100004: Object03
+    100006: Rectangle02
+    100008: Rectangle03
+    100010: Rectangle04
+    100012: Rectangle05
+    100014: Rectangle06
+    100016: Rectangle07
+    100018: Rectangle08
+    100020: Rectangle09
+    100022: Rectangle10
+    100024: Sphere01
+    100026: Sphere02
+    100028: Sphere04
     400000: //RootNode
-    400002: Helper01
-    400004: Object01
-    400006: Object03
-    400008: Rectangle02
-    400010: Rectangle03
-    400012: Rectangle04
-    400014: Rectangle05
-    400016: Rectangle06
-    400018: Rectangle07
-    400020: Rectangle08
-    400022: Rectangle09
-    400024: Rectangle10
-    400026: Sphere01
-    400028: Sphere02
-    400030: Sphere04
-    2100000: 'Material #30'
+    400002: Object01
+    400004: Object03
+    400006: Rectangle02
+    400008: Rectangle03
+    400010: Rectangle04
+    400012: Rectangle05
+    400014: Rectangle06
+    400016: Rectangle07
+    400018: Rectangle08
+    400020: Rectangle09
+    400022: Rectangle10
+    400024: Sphere01
+    400026: Sphere02
+    400028: Sphere04
+    2100000: 'Material #36'
     2100002: 'Material #34'
     2100004: 'Material #34k'
     2100006: 14 - Default
     2100008: 03 - Default
-    2100010: 'Material #40'
-    2100012: 'Material #46'
     2300000: Object01
     2300002: Object03
     2300004: Rectangle02
@@ -86,7 +82,7 @@ ModelImporter:
     4300026: Object01
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -121,7 +117,7 @@ ModelImporter:
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
-    importLights: 0
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -139,10 +135,10 @@ ModelImporter:
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
