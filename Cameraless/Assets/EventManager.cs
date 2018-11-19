@@ -7,8 +7,13 @@ public class EventManager : MonoBehaviour {
     RaycastHit raycastHitInfo;
     public static EventHandler<LookEventTriggerArgs> LookedAtEvent;
     public static bool IsBusy;
-    public float checkEventTimer = 1; // The frequency at which the LookAtEvent is triggered
+    public float timerDelayCountDown = 1;
+
+    public int EventsTilJackAwakes;
+    private static int eventsTilJackAwakes;
+
     private float timer;
+    private float lookFrequency = 1f; // The frequency at which the LookAtEvent is triggered
 
     // Keep track of how many events we have triggered
     private static int _activityCounter = 0;
@@ -17,7 +22,7 @@ public class EventManager : MonoBehaviour {
         get { return _activityCounter; }
         set 
         {
-            if (_activityCounter == 0 )
+            if (_activityCounter == eventsTilJackAwakes)
             {
                 GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
             }
@@ -32,9 +37,10 @@ public class EventManager : MonoBehaviour {
          * 
          * 
          */
-        GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
+        if(EventsTilJackAwakes == 0) GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
 
-        timer = checkEventTimer;
+        eventsTilJackAwakes = EventsTilJackAwakes; 
+        timer = timerDelayCountDown;
 	}
 
     private void FixedUpdate()
@@ -46,7 +52,7 @@ public class EventManager : MonoBehaviour {
                 LookedAtEvent.Invoke(this, new LookEventTriggerArgs() { RaycastHitInfo = raycastHitInfo });
                 Debug.Log("Looked at: " + raycastHitInfo.collider.name);
             }
-            timer = checkEventTimer;
+            timer = lookFrequency;
         }
     }
 
