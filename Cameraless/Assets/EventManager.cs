@@ -11,10 +11,29 @@ public class EventManager : MonoBehaviour {
     private float timer;
 
     // Keep track of how many events we have triggered
-    public static int activityCounter = 0;
+    private static int _activityCounter = 0;
+    public static int ActivityCounter
+    {
+        get { return _activityCounter; }
+        set 
+        {
+            if (_activityCounter == 0 )
+            {
+                GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
+            }
+            _activityCounter = value;
+        }
+    }
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
+        /*
+         * 
+         * 
+         */
+        GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
+
         timer = checkEventTimer;
 	}
 
@@ -24,10 +43,6 @@ public class EventManager : MonoBehaviour {
         {
             if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out raycastHitInfo) && !IsBusy)
             {
-
-                if (raycastHitInfo.collider.name == "Record Player" && activityCounter < 0)
-                    return;
-
                 LookedAtEvent.Invoke(this, new LookEventTriggerArgs() { RaycastHitInfo = raycastHitInfo });
                 Debug.Log("Looked at: " + raycastHitInfo.collider.name);
             }

@@ -20,7 +20,7 @@ public class ParanormalTrigger : MonoBehaviour {
     {
         if (e.RaycastHitInfo.collider.name == this.GetComponent<Collider>().name)
         {
-            EventManager.activityCounter++;
+            EventManager.ActivityCounter++;
             EventManager.IsBusy = true;
             GetComponent<Collider>().enabled = false;
 
