@@ -18,7 +18,7 @@ public class ArmChair : ParanormalTrigger {
 
     private void LookAtChairEvent(object sender, EventArgs e)
     {
-        Invoke(nameof(AddForceToTable), eventTimeDelay);
+        Invoke(nameof(AddForceToTable), 2);
     }
 
     private void AddForceToTable()
