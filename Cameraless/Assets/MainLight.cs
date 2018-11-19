@@ -54,8 +54,13 @@ public class MainLight : MonoBehaviour {
 
         yield return new WaitForSeconds(shortPause);
         mainLightGameObject.enabled = false;
+        ghost.SetActive(false);
+        jackInTheBox.SetActive(false);
+
+        yield return new WaitForSeconds(3f);
+        mainLightGameObject.enabled = true;
 
 
-        //FinishedEvent();
+        // FinishedEvent
     }
 }
