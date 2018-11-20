@@ -22,7 +22,7 @@ public class PlayRecord : ParanormalTrigger {
 
         WakeUpJack();
 
-        FinishedEvent(0);
+        FinishedEvent(20);
 
         StartEvent -= PlayCreepyMusic;
         StartEvent += MoveJackInBox;
@@ -46,7 +46,7 @@ public class PlayRecord : ParanormalTrigger {
         }
 
         jackInTheBox.GetComponent<Collider>().enabled = true;
-        FinishedEvent(2f);
+        FinishedEvent(20f);
     }
 
     private void Update()

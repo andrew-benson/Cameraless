@@ -22,6 +22,6 @@ public class Cabinet : ParanormalTrigger {
     private void PlayCloseDoorsAnimation()
     {
         GetComponent<Animator>().Play("cabinet_door1");
-        Invoke(nameof(FinishedEvent), 10);
+        FinishedEvent(5);
     }
 }
