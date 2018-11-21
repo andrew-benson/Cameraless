@@ -13,7 +13,7 @@ public class EntranceDoor : ParanormalTrigger {
 
     // Use this for initialization
     void Awake () {
-        StartEvent += delegate { Invoke(nameof(LookedAtDoor), 1f);  } ;
+        StartEvent += delegate { Invoke(nameof(LookedAtDoor), 0.5f);  } ;
     }
 
     private void LookedAtDoor()

@@ -7,6 +7,7 @@ using DigitalRuby.Tween;
 public class JackInTheBox : ParanormalTrigger {
 
     static Transform jackTransform;
+    public AudioSource footStepsAudio;
     public enum Stage { Stage1 = 1, Stage2, Stage3 };
     public static Stage CurrentStage = Stage.Stage1;
     private GameObject recordPlayer;
@@ -55,7 +56,7 @@ public class JackInTheBox : ParanormalTrigger {
             recordPlayer.GetComponent<AudioSource>().Pause();
             recordPlayer.GetComponent<AudioSource>().volume = 1;
 
-            SoundManager.PlaySound(soundFX);
+            footStepsAudio.Play();
         }); ;
     }
 

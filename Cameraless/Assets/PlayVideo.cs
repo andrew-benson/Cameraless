@@ -16,7 +16,7 @@ public class PlayVideo : ParanormalTrigger {
 
     private void LookedAtTv(object sender, EventArgs e)
     {
-        Invoke("PlayScaryVideo", UnityEngine.Random.Range(3, 6));
+        Invoke("PlayScaryVideo", UnityEngine.Random.Range(3, 4));
     }
 
     private void Player_loopPointReached(VideoPlayer source)

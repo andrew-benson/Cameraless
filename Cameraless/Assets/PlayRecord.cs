@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayRecord : ParanormalTrigger {
 
     public GameObject jackInTheBox;
+    public AudioSource ambientSound;
     public Transform position2, position3;
     public Transform vinylTransform;
     private AudioSource audioSource;
@@ -22,10 +23,19 @@ public class PlayRecord : ParanormalTrigger {
 
         WakeUpJack();
 
+        Invoke(nameof(Blink), 10f);
+
+        Invoke(nameof(StartAmbientMusic), 22);
+
         FinishedEvent(20);
 
         StartEvent -= PlayCreepyMusic;
         StartEvent += MoveJackInBox;
+    }
+
+    private void Blink()
+    {
+        MainLight.mainLightGameObject.GetComponent<MainLight>().Blink();
     }
 
     private void MoveJackInBox(object sender, EventArgs e)
@@ -47,6 +57,11 @@ public class PlayRecord : ParanormalTrigger {
 
         jackInTheBox.GetComponent<Collider>().enabled = true;
         FinishedEvent(20f);
+    }
+
+    private void StartAmbientMusic()
+    {
+        ambientSound.Play();
     }
 
     private void Update()

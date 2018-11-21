@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainLight : MonoBehaviour {
 
     public static Light mainLightGameObject;
-    public GameObject ghost;
+    //public GameObject ghost;
     public GameObject jackInTheBox;
 
     public static void TurnOff()
@@ -43,18 +43,18 @@ public class MainLight : MonoBehaviour {
             if(i == turnStage || i == turnStage + 1 && mainLightGameObject.enabled == false)
             {
                 jackInTheBox.SetActive(false);
-                ghost.SetActive(true);
+                //ghost.SetActive(true);
             }
             if (i == turnBackStage || i == turnBackStage + 1 && mainLightGameObject.enabled == false)
             {
                 jackInTheBox.SetActive(true);
-                ghost.SetActive(false);
+                //ghost.SetActive(false);
             }
         }
 
         yield return new WaitForSeconds(shortPause);
         mainLightGameObject.enabled = false;
-        ghost.SetActive(false);
+        //ghost.SetActive(false);
         jackInTheBox.SetActive(false);
 
         yield return new WaitForSeconds(3f);
