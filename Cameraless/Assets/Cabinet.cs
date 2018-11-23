@@ -11,12 +11,18 @@ public class Cabinet : ParanormalTrigger {
 
     private void LookedAtCabinet(object sender, EventArgs e)
     {
-        Invoke("PlayCloseDoorsAnimation", UnityEngine.Random.Range(2, 4));
+        Invoke(nameof(PlayCloseDoorsAnimation), 2);
+        Invoke(nameof(PlaySoundEffect), 5);
     }
 
     public override void LookedAtObject(object sender, LookEventTriggerArgs e)
     {
         base.LookedAtObject(sender, e);
+    }
+
+    private void PlaySoundEffect()
+    {
+        GetComponent<AudioSource>().PlayOneShot(soundFX);
     }
 
     private void PlayCloseDoorsAnimation()

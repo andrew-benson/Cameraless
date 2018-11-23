@@ -6,86 +6,132 @@ using DigitalRuby.Tween;
 
 public class JackInTheBox : ParanormalTrigger {
 
-    static Transform jackTransform;
-    public AudioSource footStepsAudio;
-    public enum Stage { Stage1 = 1, Stage2, Stage3 };
-    public static Stage CurrentStage = Stage.Stage1;
+    public GameObject footSteps;
+    public enum Stage { Stage1 = 0, Stage2, Stage3 };
+    public Stage CurrentStage = Stage.Stage1;
     private GameObject recordPlayer;
-
-    public static void Move(Vector3 jackInTheBoxPos)
-    {
-        jackTransform.position = jackInTheBoxPos;
-    }
+    public Transform[] positons;
 
     private void Awake()
     {
         StartEvent += LookedAtJack;
+        transform.position = positons[(int)CurrentStage].position;
 
-        jackTransform = GetComponent<Transform>();
-        this.gameObject.SetActive(false);
+        //GetComponent<Renderer>().enabled = false;
     }
 
     private void LookedAtJack(object sender, EventArgs e)
     {
-        recordPlayer = GameObject.Find("Record Player");
-
-        if (CurrentStage != Stage.Stage3)
+        if (CurrentStage == Stage.Stage1)
         {
-            TurnOffMusic();
-            FinishedEvent(3f);
+            // In stage 3 we show the girl swayin from the ceiling
+            // with blood dripping down
+            StartCoroutine(BlinkingLightRoutine1());
+        }
+
+        if(CurrentStage == Stage.Stage2)
+        {
+            StartCoroutine(BlinkingLightRoutine2());
         }
         else
         {
-            // Play rumble
+            StartCoroutine(BlinkingLightRoutine3());
 
-            // Lights flicker and show child
-            MainLight.TurnOff();
-            MainLight.mainLightGameObject.GetComponent<MainLight>().Blink();
+        }
+    }
+
+    private void TurnOnPersonWalking()
+    {
+        footSteps.GetComponent<BackAndForth>().Play();
+    }
+
+    private void TurnOffPersonWalking()
+    {
+        footSteps.GetComponent<BackAndForth>().Stop();
+    }
+
+    IEnumerator BlinkingLightRoutine1()
+    {
+
+        for (int i = 0; i < 20; i++)
+        {
+            MainLight.mainLightGameObject.enabled = MainLight.mainLightGameObject.enabled ? false : true;
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.05f, 0.3f));
         }
 
+        MainLight.mainLightGameObject.enabled = false;
+        yield return new WaitForSeconds(3f);
+
+        CurrentStage++;
+        transform.position = positons[(int)CurrentStage].position; 
+        MainLight.mainLightGameObject.enabled = true;
+
+        FinishedEvent();
+        yield return new WaitForSeconds(timeTilNextEvent);
+        GetComponent<Collider>().enabled = true;
+
+
     }
 
-    private void TurnOffMusic()
+    IEnumerator BlinkingLightRoutine2()
     {
-        gameObject.Tween("Volume", 1, 0, .3f, TweenScaleFunctions.Linear, (t) =>
-        {
-            recordPlayer.GetComponent<AudioSource>().volume = t.CurrentValue;
-        }, (t) =>
-        {
-            recordPlayer.GetComponent<Collider>().enabled = true;
-            recordPlayer.GetComponent<AudioSource>().Pause();
-            recordPlayer.GetComponent<AudioSource>().volume = 1;
+        CurrentStage++;
 
-            footStepsAudio.Play();
-        }); ;
+
+        MainLight.mainLightGameObject.enabled = false;
+        yield return new WaitForSeconds(2f);
+
+        TurnOnPersonWalking();
+
+        yield return new WaitForSeconds(4);
+
+        TurnOffPersonWalking();
+        transform.position = positons[(int)CurrentStage].position;
+        MainLight.mainLightGameObject.enabled = true;
+
+        FinishedEvent();
+
+        // Turn the jack in the box back on
+        yield return new WaitForSeconds(timeTilNextEvent);
+        GetComponent<Collider>().enabled = true;
     }
 
-    //IEnumerator BlinkingLightRoutine()
+
+    IEnumerator BlinkingLightRoutine3()
+    {
+
+        MainLight.mainLightGameObject.enabled = false;
+        yield return new WaitForSeconds(2f);
+
+        TurnOnPersonWalking();
+
+        yield return new WaitForSeconds(4);
+
+        TurnOffPersonWalking();
+        transform.position = positons[(int)CurrentStage].position;
+        MainLight.mainLightGameObject.enabled = true;
+
+        FinishedEvent();
+
+        // Turn the jack in the box back on
+        yield return new WaitForSeconds(timeTilNextEvent);
+        GetComponent<Collider>().enabled = true;
+    }
+
+    //private void MoveJackInBox(object sender, EventArgs e)
     //{
-    //    SoundManager.PlaySound(soundFX);
+    //    if (JackInTheBox.CurrentStage == JackInTheBox.Stage.Stage2)
+    //    {
+    //        jackInTheBox.transform.position = position2.position;
+    //    }
 
-    //    float shortPause = 0.1f;
-    //    float longPause = 0.4f;
+    //    else if (JackInTheBox.CurrentStage == JackInTheBox.Stage.Stage3)
+    //    {
+    //        jackInTheBox.transform.position = position3.position;
+    //        jackInTheBox.transform.eulerAngles = position3.eulerAngles;
+    //    }
 
-    //    blinkingLight.enabled = false;
-    //    yield return new WaitForSeconds(shortPause);
-    //    blinkingLight.enabled = true;
-    //    yield return new WaitForSeconds(longPause);
-    //    blinkingLight.enabled = false;
-    //    yield return new WaitForSeconds(shortPause);
-    //    blinkingLight.enabled = true;
-    //    yield return new WaitForSeconds(shortPause);
-    //    blinkingLight.enabled = false;
-    //    yield return new WaitForSeconds(shortPause);
-    //    blinkingLight.enabled = true;
-    //    yield return new WaitForSeconds(longPause);
-    //    blinkingLight.enabled = false;
-    //    yield return new WaitForSeconds(shortPause);
-    //    blinkingLight.enabled = true;
-    //    yield return new WaitForSeconds(longPause);
-    //    blinkingLight.enabled = false;
-
-    //    FinishedEvent();
+    //    jackInTheBox.GetComponent<Collider>().enabled = true;
+    //    FinishedEvent(20f);
     //}
-
 }

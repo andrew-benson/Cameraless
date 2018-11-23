@@ -19,6 +19,8 @@ public class PlayRecord : ParanormalTrigger {
 
     private void PlayCreepyMusic(object sender, EventArgs e)
     {
+        GetComponentInChildren<Animator>().Play("vinyl_player");
+
         audioSource.Play();
 
         WakeUpJack();
@@ -30,7 +32,6 @@ public class PlayRecord : ParanormalTrigger {
         FinishedEvent(20);
 
         StartEvent -= PlayCreepyMusic;
-        StartEvent += MoveJackInBox;
     }
 
     private void Blink()
@@ -38,30 +39,15 @@ public class PlayRecord : ParanormalTrigger {
         MainLight.mainLightGameObject.GetComponent<MainLight>().Blink();
     }
 
-    private void MoveJackInBox(object sender, EventArgs e)
-    {
-        JackInTheBox.CurrentStage++;
-
-        audioSource.UnPause();
-
-        if(JackInTheBox.CurrentStage == JackInTheBox.Stage.Stage2)
-        {
-            jackInTheBox.transform.position = position2.position;
-        }
-
-        else if (JackInTheBox.CurrentStage == JackInTheBox.Stage.Stage3)
-        {
-            jackInTheBox.transform.position = position3.position;
-            jackInTheBox.transform.eulerAngles = position3.eulerAngles;
-        }
-
-        jackInTheBox.GetComponent<Collider>().enabled = true;
-        FinishedEvent(20f);
-    }
-
     private void StartAmbientMusic()
     {
         ambientSound.Play();
+        TurnOnTriggers();
+    }
+
+    private void TurnOnTriggers()
+    {
+        GameObject.Find("Trigger Manager").GetComponent<TriggerManager>().TurnOnTriggerObjects();
     }
 
     private void Update()

@@ -25,41 +25,20 @@ public class MainLight : MonoBehaviour {
 
     public void Blink()
     {
-        StartCoroutine(BlinkingLightRoutine());
+        StartCoroutine(BlinkingLightRoutine(2));
     }
 
-    IEnumerator BlinkingLightRoutine()
+    /// <summary>
+    /// Use and even numbers of blinks if you want the light to with the same boolean value as it started with
+    /// </summary>
+    IEnumerator BlinkingLightRoutine(int numberOfBlinks, float shortestPause = 0.05f, float longestPause = 0.3f)
     {
-        float shortPause = 0.1f;
-        int turnStage = 20;
-        int turnBackStage = 25;
 
-
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < numberOfBlinks * 2; i++)
         {
             mainLightGameObject.enabled = mainLightGameObject.enabled ? false:true;
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.05f,0.3f));
-
-            if(i == turnStage || i == turnStage + 1 && mainLightGameObject.enabled == false)
-            {
-                jackInTheBox.SetActive(false);
-                //ghost.SetActive(true);
-            }
-            if (i == turnBackStage || i == turnBackStage + 1 && mainLightGameObject.enabled == false)
-            {
-                jackInTheBox.SetActive(true);
-                //ghost.SetActive(false);
-            }
+            yield return new WaitForSeconds(UnityEngine.Random.Range(shortestPause,longestPause));
         }
-
-        yield return new WaitForSeconds(shortPause);
-        mainLightGameObject.enabled = false;
-        //ghost.SetActive(false);
-        jackInTheBox.SetActive(false);
-
-        yield return new WaitForSeconds(3f);
-        mainLightGameObject.enabled = true;
-
 
         // FinishedEvent
     }

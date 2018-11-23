@@ -9,8 +9,8 @@ public class EventManager : MonoBehaviour {
     public static bool IsBusy;
     public float timerDelayCountDown = 1;
 
-    public int EventsTilJackAwakes;
-    private static int eventsTilJackAwakes;
+    public int EventsTilFinalEvent;
+    private static int eventsTilFinalEvent;
 
     private float timer;
     private float lookFrequency = 1f; // The frequency at which the LookAtEvent is triggered
@@ -22,8 +22,9 @@ public class EventManager : MonoBehaviour {
         get { return _activityCounter; }
         set 
         {
-            if (_activityCounter == eventsTilJackAwakes)
+            if (_activityCounter == eventsTilFinalEvent)
             {
+                // Enable final trigger here
                 GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
             }
             _activityCounter = value;
@@ -37,9 +38,9 @@ public class EventManager : MonoBehaviour {
          * 
          * 
          */
-        if(EventsTilJackAwakes == 0) GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
+        if(EventsTilFinalEvent == 0) GameObject.Find("Record Player").GetComponent<Collider>().enabled = true;
 
-        eventsTilJackAwakes = EventsTilJackAwakes; 
+        eventsTilFinalEvent = EventsTilFinalEvent; 
         timer = timerDelayCountDown;
 	}
 
