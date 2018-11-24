@@ -22,7 +22,7 @@ public class BathroomEntrance : ParanormalTrigger {
 
     IEnumerator BlinkingLightRoutine()
     {
-        SoundManager.PlaySound(soundFX);
+        SoundManager.PlayOneShotSound(soundFX);
 
         float shortPause = 0.1f;
         float longPause = 0.4f;

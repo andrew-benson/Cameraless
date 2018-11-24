@@ -34,6 +34,10 @@ public class RopeRoot : MonoBehaviour
         for (int i = 0; i < parent.childCount; i++)
         {
             var child = parent.GetChild(i);
+
+            if (child.gameObject.tag == "Ignore")
+                continue;
+
             var representative = new GameObject(child.gameObject.name);
             representative.transform.parent = RigidBodyContainer.transform;
             //rigidbody

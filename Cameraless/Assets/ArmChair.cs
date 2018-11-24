@@ -18,7 +18,7 @@ public class ArmChair : ParanormalTrigger {
 
     private void LookAtChairEvent(object sender, EventArgs e)
     {
-        Invoke(nameof(AddForceToTable), 2);
+        Invoke(nameof(AddForceToTable), 3);
     }
 
     private void AddForceToTable()
@@ -31,7 +31,7 @@ public class ArmChair : ParanormalTrigger {
         cable.transform.GetChild(0).GetComponent<Rigidbody>()?.AddForce(new Vector3(force*20, 0, 0), ForceMode.Acceleration);
         cable.transform.GetChild(0).GetComponent<Rigidbody>()?.AddForce(new Vector3(-force * 20, 0, 0), ForceMode.Impulse);
 
-        SoundManager.PlaySound(soundFX);
+        SoundManager.PlayOneShotSound(soundFX);
 
         FinishedEvent();
     }

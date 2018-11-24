@@ -18,14 +18,14 @@ public class EntranceDoor : ParanormalTrigger {
 
     private void LookedAtDoor()
     {
-        SoundManager.PlaySound(soundFX);
+        SoundManager.PlayOneShotSound(soundFX);
 
         ghost.Tween("MoveGhost", startMarker.position, endMarker.position, seconds, TweenScaleFunctions.Linear, (t) =>
         {
             // progress
             ghost.transform.position = t.CurrentValue;
         }, (t) => {
-            FinishedEvent(13f);
+            FinishedEvent(timeTilNextEvent);
         });
     }
 }

@@ -10,14 +10,20 @@ public class JackInTheBox : ParanormalTrigger {
     public enum Stage { Stage1 = 0, Stage2, Stage3 };
     public Stage CurrentStage = Stage.Stage1;
     private GameObject recordPlayer;
+    public GameObject hangingCable;
+    public GameObject child;
+    public GameObject jumpScareChild;
+
     public Transform[] positons;
+
+    public AudioClip rumbleSFX;
+    public AudioClip doorSlam;
+
 
     private void Awake()
     {
         StartEvent += LookedAtJack;
         transform.position = positons[(int)CurrentStage].position;
-
-        //GetComponent<Renderer>().enabled = false;
     }
 
     private void LookedAtJack(object sender, EventArgs e)
@@ -26,6 +32,7 @@ public class JackInTheBox : ParanormalTrigger {
         {
             // In stage 3 we show the girl swayin from the ceiling
             // with blood dripping down
+
             StartCoroutine(BlinkingLightRoutine1());
         }
 
@@ -33,10 +40,10 @@ public class JackInTheBox : ParanormalTrigger {
         {
             StartCoroutine(BlinkingLightRoutine2());
         }
-        else
+        
+        if(CurrentStage == Stage.Stage3)
         {
             StartCoroutine(BlinkingLightRoutine3());
-
         }
     }
 
@@ -50,6 +57,41 @@ public class JackInTheBox : ParanormalTrigger {
         footSteps.GetComponent<BackAndForth>().Stop();
     }
 
+    // 3
+    IEnumerator BlinkingLightRoutine3()
+    {
+
+        //Maybe a sound 
+        yield return new WaitForSeconds(1);
+
+        hangingCable.SetActive(true);
+        MainLight.mainLightGameObject.enabled = false;
+        SoundManager.PlayOneShotSound(rumbleSFX);
+
+
+        yield return new WaitForSeconds(10);
+
+
+        for (int i = 0; i < 50; i++)
+        {
+            MainLight.mainLightGameObject.enabled = MainLight.mainLightGameObject.enabled ? false : true;
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.05f, 0.3f));
+        }
+
+        hangingCable.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
+        child.AddComponent<Rigidbody>();
+        MainLight.mainLightGameObject.enabled = false;
+        SoundManager.Stop();
+        SoundManager.PlaySound(doorSlam);
+
+        MainLight.mainLightGameObject.enabled = true;
+
+        yield return new WaitForSeconds(1f);
+        jumpScareChild.GetComponent<JumpScare>().JumpUp();
+        
+    }
+
+    // 1
     IEnumerator BlinkingLightRoutine1()
     {
 
@@ -66,30 +108,30 @@ public class JackInTheBox : ParanormalTrigger {
         transform.position = positons[(int)CurrentStage].position; 
         MainLight.mainLightGameObject.enabled = true;
 
-        FinishedEvent();
+        FinishedEvent(5f);
         yield return new WaitForSeconds(timeTilNextEvent);
         GetComponent<Collider>().enabled = true;
 
 
     }
 
+    // 2
     IEnumerator BlinkingLightRoutine2()
     {
+        MainLight.mainLightGameObject.enabled = false;
+        yield return new WaitForSeconds(2f);
+
+        TurnOnPersonWalking();
+
+        yield return new WaitForSeconds(4);
+
+        TurnOffPersonWalking();
         CurrentStage++;
-
-
-        MainLight.mainLightGameObject.enabled = false;
-        yield return new WaitForSeconds(2f);
-
-        TurnOnPersonWalking();
-
-        yield return new WaitForSeconds(4);
-
-        TurnOffPersonWalking();
         transform.position = positons[(int)CurrentStage].position;
         MainLight.mainLightGameObject.enabled = true;
 
         FinishedEvent();
+
 
         // Turn the jack in the box back on
         yield return new WaitForSeconds(timeTilNextEvent);
@@ -97,26 +139,6 @@ public class JackInTheBox : ParanormalTrigger {
     }
 
 
-    IEnumerator BlinkingLightRoutine3()
-    {
-
-        MainLight.mainLightGameObject.enabled = false;
-        yield return new WaitForSeconds(2f);
-
-        TurnOnPersonWalking();
-
-        yield return new WaitForSeconds(4);
-
-        TurnOffPersonWalking();
-        transform.position = positons[(int)CurrentStage].position;
-        MainLight.mainLightGameObject.enabled = true;
-
-        FinishedEvent();
-
-        // Turn the jack in the box back on
-        yield return new WaitForSeconds(timeTilNextEvent);
-        GetComponent<Collider>().enabled = true;
-    }
 
     //private void MoveJackInBox(object sender, EventArgs e)
     //{
